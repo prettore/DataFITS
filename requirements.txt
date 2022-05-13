@@ -1,0 +1,14 @@
+numpy
+bs4
+cython
+datetime
+geojson
+networkx
+osmnx==0.16.2
+pandas
+python-dateutil
+pytz
+requests
+Shapely
+tqdm
+urllib3
