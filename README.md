@@ -140,7 +140,7 @@ Average vehicle speed under different traffic conditions
 
 How to cite
 ----
-If you decided to use this prototype, please, refer to it as:
+If you decided to use this framework, please, refer to it as:
 
 -  Philipp Zissner, Rettore, Paulo H. L., Bruno P. Santos, Roberto Rigolin F. Lopes, and Peter Sevenich.
 Road traffic density estimation based on heterogeneous data fusion. In IEEE Symposium on Computers
