@@ -135,3 +135,33 @@ Table showing the covered road segments by each data source
 ![Alt text](img/jf_speed.svg?raw=true "Heatmap speed and incident")
 
 Average vehicle speed under different traffic conditions
+
+Average vehicle speed under different traffic conditions
+
+How to cite
+----
+If you decided to use this prototype, please, refer to it as:
+
+-  Philipp Zissner, Rettore, Paulo H. L., Bruno P. Santos, Roberto Rigolin F. Lopes, and Peter Sevenich.
+Road traffic density estimation based on heterogeneous data fusion. In IEEE Symposium on Computers
+and Communications (ISCC), Rhodes Island, Greece, June 2022
+
+Publications
+----
+
+- Philipp Zissner, Rettore, Paulo H. L., Bruno P. Santos, Roberto Rigolin F. Lopes, and Peter Sevenich.
+Road traffic density estimation based on heterogeneous data fusion. In IEEE Symposium on Computers
+and Communications (ISCC), Rhodes Island, Greece, June 2022
+
+
+Contacts
+----
+
+paulo.lopes.rettore@fkie.fraunhofer.de
+
+philipp.zissner@fkie.fraunhofer.de
+
+License
+----
+
+GPL
