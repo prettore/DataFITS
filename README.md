@@ -1,7 +1,6 @@
 # DataFITS - Data Fusion Framework for ITS
-[![N|Solid](https://www.fkie.fraunhofer.de/content/dam/fkie/fkie.svg)](https://www.fkie.fraunhofer.de)
 
-A Data Fusion Framework to Support  Intelligent  Transportation Systems and Military Operations
+A Data Fusion Framework to Support  Intelligent  Transportation Systems
 
 This project is a framework, capable of collecting heterogeneous data from different sources which can be used to develop new applications in the context of Intelligent Transportation Systems. DataFITS collects data and processes it through the use of mapmatching, fusing it regarding spatiotemporal aspects resulting in an enrichment of the acquired information. The framework is developed in Python3 but the mapmatching algorithm uses Python2.7.
 
