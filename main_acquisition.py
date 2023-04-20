@@ -1,67 +1,69 @@
-import data_acquisition.od_acquisition as od                            #Gets Traffic and Construction data from OpenData
-import traffic.crawler.Traffic_Crawler as Main_Crawler                  #Gets the data from HERE, BING and MAPQUEST
-import traffic.crawler.ConvertHERE_Traffic_Incident_ToCSV as HERE_CSV   #Converts the HERE data to csv files
-import traffic.crawler.ConvertBING_Incident_ToCSV as BING_CSV           #Converts the BING data to csv files
-import data_acquisition.adac_crawler as adac                            #Acquires Data from ADAC
-import weather.crawler.Weather_Crawler as Weather_Crawler              #Acquires Weather Data (1 time a week; hourly data)
+import data_acquisition.here_acquisition as here_acquire  # Data Acquisition: HERE
+import data_acquisition.here_process as here_process  # Data Preprocessing: HERE
+import data_acquisition.bing_acquisition as bing_acquire  # Data Acquisition : BING
+import data_acquisition.bing_process as bing_process  # Data Preprocessing: BING
+import data_acquisition.od as od  # Data Acquisition: Open Data
+import data_acquisition.weather as weather  # Data Acquisition: Weather
 import logging
 import time
 import configparser
 import datetime
 
-
+# Setup configuration file
 configparser = configparser.RawConfigParser()
 configFilePath = r'config.ini'
 configparser.read(configFilePath)
 
-time_val = int(configparser.get('main-config','time_interval')) #default: 10 minutes
-Sources = configparser.options("Sources")
+# Load the acquisition interval and list of sources
+time_val = int(configparser.get('main-config', 'time_interval'))
+Sources = dict(configparser.items("Sources"))
+Sources = {k: True if Sources[k] == 'true' else False for k in Sources}  # Convert to boolean
 
-#Create a new logfile (ATTENTION: The old log file will be deleted when you run this script)
-file = open("logfile.log","w+")
-file.close()
-'''
-Logging is done in each module itself
-'''
+# Create a new logfile (ATTENTION: log file is recreated on each run of the script)
 logging_lvl = logging.INFO
+file = open("logfile.log", "w+")
+file.close()
 
-'''Here you can define all the cities for the data acquisition'''
-cities = ["bonn","koeln","hamburg","berlin","muenster","moenchengladbach","duesseldorf","muenchen","stuttgart","dortmund","bremen","chemnitz"]
+# Define all cities which should be covered by the data acquisition process
+cities = ["bonn", "koeln", "hamburg", "berlin", "muenster", "moenchengladbach", "duesseldorf", "muenchen", "stuttgart",
+          "dortmund", "bremen", "chemnitz"]
 
-#Sets the starting date
+# Sets the starting date
 startingDate = datetime.date.today()
 acquired_today = False
+
 while True:
     start_time = time.time()
-    today = datetime.date.today()    #Gets the current date
-    if "traffic_here" in Sources:
-        Main_Crawler.main(cities,["traffic"],time_val,logging_lvl) #Collects traffic data from HERE
-    if "incident_here" in Sources:
-        Main_Crawler.main(cities,["incident_here"],time_val,logging_lvl) #Collects incident data from HERE
-    if "traffic_here" or "incident_here" in Sources:
-        HERE_CSV.main(cities,time_val, logging_lvl) #Convert HERE traffic to csv
-    if "incident_bing" in Sources:
-        Main_Crawler.main(cities, ["incident_bing"],time_val,logging_lvl)
-        BING_CSV.main(cities, time_val, logging_lvl) #Convert BING incident to csv
-
-    if "traffic_od" in Sources:
-        od.main("bonn", "traffic", time_val, logging_lvl)  # Acquires traffic data for bonn every 10 mins
-        od.main("koeln", "traffic", time_val, logging_lvl) # Acquires traffic data for cologne every 10 mins
-        #od.main("Hamburg", "traffic", time_val, logging_lvl) #Implement OD for Hamburg
-    if "construction_od" in Sources:
-        od.main("bonn","construction", time_val, logging_lvl) # Acquires construction data for bonn every 10 mins
-        od.main("koeln", "construction", time_val, logging_lvl)
-
-    if "adac" in Sources:
-        adac.main(cities, time_val, logging_lvl) #Acquires traffic and construction data for Bonn (and 25km around) from ADAC every 10 mins
-    
-    if "weather" in Sources:
-        if ((today-startingDate).days % 7 == 0) and not acquired_today:
-            Weather_Crawler.main(cities,time_val,logging_lvl)
-            acquired_today = True #If the data has been acquired this flag is set to True
-        elif ((today-startingDate).days % 7 == 0):
+    today = datetime.date.today()  # Gets the current date
+    # HERE
+    if Sources["traffic_here"]:
+        here_acquire.main(cities, ["traffic"], time_val, logging_lvl)  # Collects HERE traffic data
+    if Sources["incident_here"]:
+        here_acquire.main(cities, ["incident"], time_val, logging_lvl)  # Collects HERE incident data
+    if Sources["traffic_here"] or Sources["incident_here"]:
+        here_process.main(cities, time_val, logging_lvl)  # Processes HERE data to csv format
+    # BING
+    if Sources["incident_bing"]:
+        bing_acquire.main(cities, ["incident"], time_val, logging_lvl)  # Collects BING incident data
+        bing_process.main(cities, time_val, logging_lvl)  # Converts BING data to csv
+    # OpenData
+    if Sources["traffic_od"]:
+        od.main("bonn", "traffic", time_val, logging_lvl)  # Collects OD traffic data (Bonn)
+        od.main("koeln", "traffic", time_val, logging_lvl)  # Collects OD traffic data (Cologne)
+    if Sources["construction_od"]:
+        od.main("bonn", "construction", time_val, logging_lvl)  # Collects OD construction data (Bonn)
+        od.main("koeln", "construction", time_val, logging_lvl)  # Collects OD construction data (Cologne)
+    # WEATHER
+    if Sources["weather"]:
+        if ((today - startingDate).days % 7 == 0) and not acquired_today:
+            weather.main(cities, time_val, logging_lvl)
+            acquired_today = True  # If the data has been acquired this flag is set to True
+        elif (today - startingDate).days % 7 == 0:
             pass
         else:
-            acquired_today = False #On another day without data acquisition, the flag is set to false
+            acquired_today = False  # On another day without data acquisition, the flag is set to false
+
+    # Wait regarding the defined time interval until the next acquisition
     end_time = time.time()
-    time.sleep(time_val*60-(end_time-start_time))
+    if (end_time - start_time) < time_val * 60:
+        time.sleep(time_val * 60 - (end_time - start_time))

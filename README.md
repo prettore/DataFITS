@@ -1,21 +1,26 @@
 # DataFITS - Data Fusion Framework for ITS
 
-A Data Fusion Framework to Support  Intelligent  Transportation Systems
-
 This project is a framework, capable of collecting heterogeneous data from different sources which can be used to develop new applications in the context of Intelligent Transportation Systems. DataFITS collects data and processes it through the use of mapmatching, fusing it regarding spatiotemporal aspects resulting in an enrichment of the acquired information. The framework is developed in Python3 but the mapmatching algorithm uses Python2.7.
 
+![Alt text](img/DataFITS_overview.png?raw=true "DataFITS Overview")
+
 ## Dependencies
-- Install Fast Map Matching (https://github.com/cyang-kth/fmm)
+- Install Fast Map Matching (follow instructions on https://github.com/cyang-kth/fmm)
+  - Please note that FMM was developed in Python 2, there is a workaround for Python 3 
 - Install all python requirements
 ```shell
 pip3 install -r requirements.txt
 ```
 
 ## Usage
-- Clone the repository and open the script *main_acquisition.py* to define the cities for which you want to collect the data; set the acquisition frequency in the configuration file (*config.ini*)
-- *Config.ini*: Use [main-config] to configure the data acquisition and processing
-- Run *main_acquisition.py*: Collects data
-- Run *framework_setup.py*: Initialzie the framework
+### Data Acquisition
+- Clone the repository and open the script *main_acquisition.py* to define the cities for which you want to collect the data;
+- Set the acquisition frequency and sources in the configuration file (*config.ini*)
+- Run *main_acquisition.py* to collect data for all cities from the defined sources
+- ENVIROCAR: To collect and process vehicular data, please run *envirocar_main.py* (for all cities defined in *main_acquisition.py*)
+### Data Fusion
+- *Config.ini*: Use [main-config] to set the city and configure the further data processing
+- Run *framework_setup.py*: Initialize the framework
 - Switch to the folder *data_enrichment* and run the following scripts as single steps of the framework:
   - ___preparation<span>.py___: Prepares the collected data and parses the input for FMM 
   - ___get_osm_shp.py___: Collects the shapefile of the defined city from OSM
@@ -120,20 +125,15 @@ An exemplary except of the resulting csv file:
 This file gives more information to every road piece which is covered by our initial data, as it fuses data from different data sources together and uses mapmatching to make sure, they are describing the same road piece. 
 It can be used to fuse heterogeneous data from different sources but with the same spatial time aspect or it can give better information about the current situation.
 
-### Data Visualization
-We used the enriched data to create some statistics and visualizations using the programming language R. The used scripts are going to be added to this repository at a later point in time, but you can find an excerp of some statistics and visualizations here:
+### Data Analysis & Visualization
+We used the enriched data to create some statistics and visualizations using the programming language R. The used scripts are going to be added to this repository at a later point in time.
+You can find an excerpt of some visualizations here, please see [Data Characterization](data_characterization/README.md) for more details.
 
 ![Alt text](img/02Envirocar_Accident%2BRoadHazard.svg?raw=true "Heatmap speed and incident")
 
 Heatmap showing vehicular speed and incident reports
 
-![Alt text](img/Coverage_Sources.PNG?raw=true "Road segment coverage")
-
-Table showing the covered road segments by each data source
-
 ![Alt text](img/jf_speed.svg?raw=true "Heatmap speed and incident")
-
-Average vehicle speed under different traffic conditions
 
 Average vehicle speed under different traffic conditions
 
