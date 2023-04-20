@@ -44,6 +44,8 @@ The following sources and german cities are currently implemented but can be fur
 - [x] Envirocar (Database)  
 - [ ] ADAC
 
+You can access the data for Bonn here: [Bonn Data (December 2021 - August 2022)](http://rettore.com.br/prof/datafits/data/bonn_dec21-aug22.zip)
+
 ## Heterogeneous Data
 
 Regarding the different data sources, the script obtains different heterogenous data features. Traffic data from different sources comes with data features like average vehicle speed and a traffic factor with the addition of construction data from other sources. Furthermore, we are collecting vehicular data like CO2 emission or the fuel consumption from the Envirocar database and conclude our acquisition with hourly weather data.
