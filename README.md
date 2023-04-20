@@ -16,6 +16,7 @@ pip3 install -r requirements.txt
 ### Data Acquisition
 - Clone the repository and open the script *main_acquisition.py* to define the cities for which you want to collect the data;
 - Set the acquisition frequency and sources in the configuration file (*config.ini*)
+- Set the API credentials in *data_acquisition/api_keys.json* (if required)
 - Run *main_acquisition.py* to collect data for all cities from the defined sources
 - ENVIROCAR: To collect and process vehicular data, please run *envirocar_main.py* (for all cities defined in *main_acquisition.py*)
 ### Data Fusion
