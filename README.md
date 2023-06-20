@@ -144,15 +144,18 @@ How to cite
 ----
 If you decided to use this framework, please, refer to it as:
 
--  Philipp Zissner, Rettore, Paulo H. L., Bruno P. Santos, Roberto Rigolin F. Lopes, and Peter Sevenich.
-Road traffic density estimation based on heterogeneous data fusion. In IEEE Symposium on Computers
-and Communications (ISCC), Rhodes Island, Greece, June 2022
+-  P. Zißner, P. H. L. Rettore, B. P. Santos, J. F. Loevenich and R. R. F. Lopes,
+"DataFITS: A Heterogeneous Data Fusion Framework for Traffic and Incident Prediction," in IEEE Transactions on
+Intelligent Transportation Systems, doi: 10.1109/TITS.2023.3281752.
 
 Publications
 ----
+-  P. Zißner, P. H. L. Rettore, B. P. Santos, J. F. Loevenich and R. R. F. Lopes,
+"DataFITS: A Heterogeneous Data Fusion Framework for Traffic and Incident Prediction," in IEEE Transactions on
+Intelligent Transportation Systems, doi: 10.1109/TITS.2023.3281752.
 
 - Philipp Zissner, Rettore, Paulo H. L., Bruno P. Santos, Roberto Rigolin F. Lopes, and Peter Sevenich.
-Road traffic density estimation based on heterogeneous data fusion. In IEEE Symposium on Computers
+"Road traffic density estimation based on heterogeneous data fusion". In IEEE Symposium on Computers
 and Communications (ISCC), Rhodes Island, Greece, June 2022
 
 
