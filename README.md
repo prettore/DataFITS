@@ -45,7 +45,7 @@ The following sources and german cities are currently implemented but can be fur
 - [x] Envirocar (Database)  
 - [ ] ADAC
 
-You can access the data for Bonn here: http://rettore.com.br/prof/datafits/data/bonn_dec21-aug22.zip
+You can access the data for Bonn here: [Data](https://www.rettore.com.br/public_data/files/datafits/data/bonn_dec21-aug22.zip)
 
 ## Heterogeneous Data
 
